@@ -38,9 +38,9 @@ def subway_process(df, weekends):
     df.drop(columns=['등록일자'], inplace=True)
     df.columns = ['Date', 'Line', 'Station', 'Bording', 'Exiting']
     df['Date'] = pd.to_datetime(df['Date'].astype(str), format='%Y%m%d')
-    df = weekendOnly(df) if weekends else weekOnly(df)
-    df['Station'] = df['Station'].str.split('(').str[0].str.strip()
-    df = df.groupby(['Date', 'Station']).agg({'Bording': 'sum', 'Exiting': 'sum'}).reset_index()
-    df['Bording_index'] = df['Bording'] / df.groupby('Station')['Bording'].transform('mean') * 100
-    df['Exiting_index'] = df['Exiting'] / df.groupby('Station')['Exiting'].transform('mean') * 100
+    df = weekendOnly(df) if weekends else weekOnly(df)  # 평일/휴일 필터링
+    df = df.groupby(['Date', 'Station']).agg({'Bording': 'sum', 'Exiting': 'sum'}).reset_index()    # 환승역 합산
+    df['Station'] = df['Station'].str.split('(').str[0].str.strip() # 부역명 제거
+    df['Bording_index'] = df['Bording'] / df.groupby('Station')['Bording'].transform('mean') * 100  # 승차인원지수
+    df['Exiting_index'] = df['Exiting'] / df.groupby('Station')['Exiting'].transform('mean') * 100  # 하차인원지수
     return df
