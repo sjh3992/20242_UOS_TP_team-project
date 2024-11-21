@@ -1,7 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
 import scipy.stats as stats
 
 from file_read import weather_read, subway_read

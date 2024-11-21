@@ -28,15 +28,19 @@ def subway_read(weekends):
     for file in files:
         if file.split(".")[1] == "csv":
             try:
-                df = pd.concat([df, subway_process(pd.read_csv(file, index_col=False))])
+                df = pd.concat([df, subway_process(pd.read_csv(file, index_col=False), weekends)])
             except UnicodeDecodeError:
-                df = pd.concat([df, subway_process(pd.read_csv(file, index_col=False, encoding='CP949'))])
+                df = pd.concat([df, subway_process(pd.read_csv(file, index_col=False, encoding='CP949'), weekends)])
     
-    return weekendOnly(df) if weekends else weekOnly(df)
+    return df
 
-def subway_process(df):
+def subway_process(df, weekends):
     df.drop(columns=['등록일자'], inplace=True)
     df.columns = ['Date', 'Line', 'Station', 'Bording', 'Exiting']
     df['Date'] = pd.to_datetime(df['Date'].astype(str), format='%Y%m%d')
+    df = weekendOnly(df) if weekends else weekOnly(df)
     df['Station'] = df['Station'].str.split('(').str[0].str.strip()
-    return df.groupby(['Date', 'Station']).agg({'Bording': 'sum', 'Exiting': 'sum'}).reset_index()
+    df = df.groupby(['Date', 'Station']).agg({'Bording': 'sum', 'Exiting': 'sum'}).reset_index()
+    df['Bording_index'] = df['Bording'] / df.groupby('Station')['Bording'].transform('mean') * 100
+    df['Exiting_index'] = df['Exiting'] / df.groupby('Station')['Exiting'].transform('mean') * 100
+    return df
