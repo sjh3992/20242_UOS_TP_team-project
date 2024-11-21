@@ -12,8 +12,11 @@ subway = subway_read(weekends)
 # Pearsonr 상관관계 분석
 names = [['강남', 'Gangnam'], ['잠실', 'Jamsil'], ['서울역', 'Seoul Station'], ['고속터미널', 'Express Bus Terminal'], ['홍대입구', 'Hongik University']]
 i=1
+outlier = 1000000
+
 for name_k, name in names:
     df = pd.merge(subway[subway['Station'] == name_k], weather, on='Date')
+    #df = df[abs(df['Bording_z']) < outlier]
     statistic, pvalue = stats.pearsonr(df['Bording_index'], df['Rain'])
     print(name, statistic, pvalue)
 
