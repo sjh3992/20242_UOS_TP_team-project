@@ -45,6 +45,4 @@ def subway_process(df, weekends):
     #df['Exiting_index'] = df['Exiting'] / df.groupby('Station')['Exiting'].transform('mean') * 100  # 하차인원지수
     df['Bording_z'] = df.groupby('Station')['Bording'].transform(lambda x: (x - x.mean()) / x.std())    # 승차인원 z값
     #df['Exiting_z'] = df.groupby('Station')['Exiting'].transform(lambda x: (x - x.mean()) / x.std())    # 하차인원 z값
-    df['+3'] = df.groupby('Station')['Bording'].transform(lambda x: 3 * x.std() + x.mean()) / df.groupby('Station')['Bording'].transform('mean') * 100
-    df['-3'] = df.groupby('Station')['Bording'].transform(lambda x: -3 * x.std() + x.mean()) / df.groupby('Station')['Bording'].transform('mean') * 100
     return df
