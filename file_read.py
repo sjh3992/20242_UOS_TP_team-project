@@ -18,7 +18,6 @@ def weather_read(weekends):
     df.fillna(0, inplace=True)
 
     return weekendOnly(df) if weekends else weekOnly(df)
-    
 
 def subway_read(weekends):
     os.chdir("./data_subway")
