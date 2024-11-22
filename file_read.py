@@ -13,7 +13,7 @@ def weather_read(weekends):
     df['Date'] = pd.to_datetime(df['Date'])
 
     # 날씨 정보 결측치를 0.0으로 조정
-    date_range = pd.date_range(start='2024-01-01', end='2024-10-31')
+    date_range = pd.date_range(start='2023-01-01', end='2024-10-31')
     df = pd.merge(pd.DataFrame({'Date': date_range}), df, on='Date', how='left')
     df.fillna(0, inplace=True)
 
