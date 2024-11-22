@@ -5,10 +5,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
+from outlier import outlier
+
 def visual(df, name):
-    outlier = 3.0
-    df_out = df[abs(df['Bording_z']) >= outlier]
-    df = df[abs(df['Bording_z']) < outlier]
+    df, df_out = outlier(df)
 
     statistic, pvalue = stats.pearsonr(df['Bording_z'], df['Rain'])
     print(name, statistic, pvalue, sep=', ', end='\n')
