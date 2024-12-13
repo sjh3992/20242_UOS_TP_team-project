@@ -6,14 +6,18 @@ import os
 
 from week_filter import weekOnly, weekendOnly
 
+def climate_read():
+    df = pd.read_csv('climate.csv', index_col=False)
+    df['Date'] = pd.to_datetime(df['Date'])
+    return df
+
+
 def weather_read(weekends):
-    df = pd.read_csv('weather.csv', index_col=False, encoding='CP949')
-    df.drop(columns=['지점', '지점명'], inplace=True)
-    df.columns = ['Date', 'Rain', 'Snow']
+    df = pd.read_csv('weather.csv', index_col=False)
     df['Date'] = pd.to_datetime(df['Date'])
 
     # 날씨 정보 결측치를 0.0으로 조정
-    date_range = pd.date_range(start='2023-01-01', end='2024-10-31')
+    date_range = pd.date_range(start='2020-01-01', end='2024-12-10')
     df = pd.merge(pd.DataFrame({'Date': date_range}), df, on='Date', how='left')
     df.fillna(0, inplace=True)
 

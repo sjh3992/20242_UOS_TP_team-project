@@ -1,10 +1,11 @@
 import pandas as pd
 
-from file_read import weather_read, subway_read
+from file_read import weather_read, subway_read, climate_read
 from visual import rain_visual
 
 # csv 불러오기
 weekends = False    # True: 주말/공휴일 분석, False: 평일 분석
+climate = climate_read()
 weather = weather_read(weekends)
 subway = subway_read(weekends)
 
