@@ -23,6 +23,7 @@ def min_rain_visual(df, name):
     plt.plot(df['10분최다강수량'], df['Bording_z'], 'kx')
     plt.plot(df_out['10분최다강수량'], df_out['Bording_z'], 'rx')
     plt.savefig(name + '_10분최다강수량.png')
+    plt.cla()
 
 def hour_rain_visual(df, name):
     df, df_out = outlier(df)
@@ -40,6 +41,7 @@ def hour_rain_visual(df, name):
     plt.plot(df['1시간최다강수량'], df['Bording_z'], 'kx')
     plt.plot(df_out['1시간최다강수량'], df_out['Bording_z'], 'rx')
     plt.savefig(name + '_1시간최다강수량.png')
+    plt.cla()
 
 def day_rain_visual(df, name):
     df, df_out = outlier(df)
@@ -57,3 +59,4 @@ def day_rain_visual(df, name):
     plt.plot(df['일강수량'], df['Bording_z'], 'kx')
     plt.plot(df_out['일강수량'], df_out['Bording_z'], 'rx')
     plt.savefig(name + '_일강수량.png')
+    plt.cla()
