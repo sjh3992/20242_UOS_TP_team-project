@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 from file_read import weather_read, subway_read, climate_read
-from visual import rain_visual
+from visual import *
 
 # csv 불러오기
 weekends = False    # True: 주말/공휴일 분석, False: 평일 분석
@@ -18,4 +18,7 @@ names = [['강남', 'Gangnam'],
 
 for stn, name in names:
     os.chdir("../graph")
-    rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    print(name)
+    min_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    hour_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    day_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
