@@ -7,7 +7,7 @@ import scipy.stats as stats
 
 from outlier import outlier
 
-def visual(df, name):
+def rain_visual(df, name):
     df, df_out = outlier(df)
 
     statistic, pvalue = stats.pearsonr(df['Bording_z'], df['Rain'])
@@ -22,4 +22,4 @@ def visual(df, name):
     plt.axhline(df[df['Rain']>=10.0]['Bording_z'].mean(), linestyle='--', color='red', label='>=10.0mm')
     plt.plot(df['Rain'], df['Bording_z'], 'kx')
     plt.plot(df_out['Rain'], df_out['Bording_z'], 'rx')
-    plt.show()
+    plt.savefig(name + '_rain.png')

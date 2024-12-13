@@ -1,7 +1,7 @@
 import pandas as pd
 
 from file_read import weather_read, subway_read
-from visual import visual
+from visual import rain_visual
 
 # csv 불러오기
 weekends = False    # True: 주말/공휴일 분석, False: 평일 분석
@@ -15,4 +15,4 @@ names = [['강남', 'Gangnam'],
          ['홍대입구', 'Hongik University']]
 
 for stn, name in names:
-    visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
