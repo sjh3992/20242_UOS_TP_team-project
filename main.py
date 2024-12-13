@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 from file_read import weather_read, subway_read, climate_read
 from visual import rain_visual
@@ -16,4 +17,5 @@ names = [['강남', 'Gangnam'],
          ['홍대입구', 'Hongik University']]
 
 for stn, name in names:
+    os.chdir("../graph")
     rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
