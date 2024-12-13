@@ -16,9 +16,14 @@ names = [['강남', 'Gangnam'],
          ['고속터미널', 'Express Bus Terminal'], 
          ['홍대입구', 'Hongik University']]
 
+os.chdir("../graph")
 for stn, name in names:
-    os.chdir("../graph")
     print(name)
+    os.chdir("./rain")
     min_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
     hour_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
     day_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    os.chdir("../snow")
+    new_snow_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    snow_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
+    os.chdir("../")
