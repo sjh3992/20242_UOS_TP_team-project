@@ -23,3 +23,4 @@ for stn in ['강남', '잠실', '서울역', '고속터미널', '홍대입구']:
     os.chdir('./'+stn)
     rainfall(pd.merge(subway[subway['Station']==stn], weather, on='Date'), stn)
     os.chdir('../')
+    print("")
