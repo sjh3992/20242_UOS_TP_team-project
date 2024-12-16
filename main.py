@@ -17,6 +17,7 @@ subway = subway_read(weekends)
 # 그래프 시각화 후 png 파일로 저장
 os.chdir('../graph')
 for stn in ['강남', '잠실', '서울역', '고속터미널', '홍대입구']:
+    print(stn)
     if not os.path.exists('./'+stn):
         os.mkdir('./'+stn)
     os.chdir('./'+stn)
