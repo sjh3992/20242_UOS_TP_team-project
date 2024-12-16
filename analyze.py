@@ -22,10 +22,12 @@ def rainfall(df, stn):
 
     for i in ['10분최다강수량', '1시간최다강수량', '일강수량', '강수계속시간']:
         pear(df['Bording_z'], df[i], i)
+        pear(df[df[i] > 0]['Bording_z'], df[df[i] > 0][i], i+'(except 0)')
         rain_visual(df, df_out, stn, i)
     
     for i in ['일최심신적설', '일최심적설', '합계3시간신적설']:
         pear(df['Bording_z'], df[i], i)
+        pear(df[df[i] > 0]['Bording_z'], df[df[i] > 0][i], i+'(except 0)')
         snow_visual(df, df_out, stn, i)
 
 def temp(df, stn):
