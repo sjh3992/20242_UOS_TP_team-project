@@ -10,12 +10,14 @@ climate = climate_read()
 weather = weather_read(weekends)
 subway = subway_read(weekends)
 
+# 분석 대상 역사
 names = [['강남', 'Gangnam'], 
          ['잠실', 'Jamsil'], 
          ['서울역', 'Seoul Station'], 
          ['고속터미널', 'Express Bus Terminal'], 
          ['홍대입구', 'Hongik University']]
 
+# 그래프 시각화 후 png 파일로 저장
 os.chdir("../graph")
 for stn, name in names:
     print(name)

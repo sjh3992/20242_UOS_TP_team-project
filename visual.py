@@ -7,6 +7,7 @@ import scipy.stats as stats
 
 from outlier import outlier
 
+# 10분 최다 강수량에 따른 상관관계 분석
 def min_rain_visual(df, name):
     df, df_out = outlier(df)
 
@@ -26,6 +27,7 @@ def min_rain_visual(df, name):
     plt.savefig(name + '_10분최다강수량.png')
     plt.cla()
 
+# 1시간 최다 강수량에 따른 상관관계 분석
 def hour_rain_visual(df, name):
     df, df_out = outlier(df)
 
@@ -45,6 +47,7 @@ def hour_rain_visual(df, name):
     plt.savefig(name + '_1시간최다강수량.png')
     plt.cla()
 
+# 일강수량에 따른 상관관계 분석
 def day_rain_visual(df, name):
     df, df_out = outlier(df)
 
@@ -64,6 +67,7 @@ def day_rain_visual(df, name):
     plt.savefig(name + '_일강수량.png')
     plt.cla()
 
+# 일최심신적설에 따른 상관관계 분석
 def new_snow_visual(df, name):
     df, df_out = outlier(df)
 
@@ -83,6 +87,7 @@ def new_snow_visual(df, name):
     plt.savefig(name + '_일최심신적설.png')
     plt.cla()
 
+# 일최심적설에 따른 상관관계 분석
 def snow_visual(df, name):
     df, df_out = outlier(df)
 
