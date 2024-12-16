@@ -23,5 +23,5 @@ def rainfall(df, stn):
     
     for i in ['일최심신적설', '일최심적설', '합계3시간신적설']:
         statistic, pvalue = stats.pearsonr(df['Bording_z'], df[i])
-        print(i+": ", statistic, pvalue, sep=', ', end='\n')
+        print(i+": ", statistic, pvalue, pvalue<0.05, sep=', ')
         snow_visual(df, df_out, stn, i)
