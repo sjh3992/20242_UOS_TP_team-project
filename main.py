@@ -18,6 +18,7 @@ names = [['강남', 'Gangnam'],
          ['홍대입구', 'Hongik University']]
 
 # 그래프 시각화 후 png 파일로 저장
+plt.rcParams['font.family'] = 'NanumGothic'
 os.chdir("../graph")
 for stn, name in names:
     print(name)
