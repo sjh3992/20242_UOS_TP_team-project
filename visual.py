@@ -14,7 +14,7 @@ def visual(df, df_out, stn, head):
     plt.grid()
     plt.plot(df[head], df['Bording_z'], 'kx')
     plt.plot(df_out[head], df_out['Bording_z'], 'rx')
-    plt.savefig(stn + '_' + head + '.png')
+    plt.savefig(stn + '_' + head + '.png', dpi=400)
     plt.cla()
 
 # 강수량 분석 시각화
