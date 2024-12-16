@@ -1,8 +1,9 @@
-import pandas as pd
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
 
 from file_read import weather_read, subway_read, climate_read
-from visual import *
+from analyze import rainfall
 
 # csv 불러오기
 weekends = False    # True: 주말/공휴일 분석, False: 평일 분석
@@ -10,23 +11,11 @@ climate = climate_read()
 weather = weather_read(weekends)
 subway = subway_read(weekends)
 
-# 분석 대상 역사
-names = [['강남', 'Gangnam'], 
-         ['잠실', 'Jamsil'], 
-         ['서울역', 'Seoul Station'], 
-         ['고속터미널', 'Express Bus Terminal'], 
-         ['홍대입구', 'Hongik University']]
-
 # 그래프 시각화 후 png 파일로 저장
-plt.rcParams['font.family'] = 'NanumGothic'
-os.chdir("../graph")
-for stn, name in names:
-    print(name)
-    os.chdir("./rain")
-    min_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
-    hour_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
-    day_rain_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
-    os.chdir("../snow")
-    new_snow_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
-    snow_visual(pd.merge(subway[subway['Station']==stn], weather, on='Date'), name)
-    os.chdir("../")
+os.chdir('../graph')
+for stn in ['강남', '잠실', '서울역', '고속터미널', '홍대입구']:
+    if not os.path.exists('./'+stn):
+        os.mkdir('./'+stn)
+    os.chdir('./'+stn)
+    rainfall(pd.merge(subway[subway['Station']==stn], weather, on='Date'), stn)
+    os.chdir('../')
