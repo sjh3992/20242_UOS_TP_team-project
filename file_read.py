@@ -6,6 +6,23 @@ import os
 
 from week_filter import weekOnly, weekendOnly
 
+# 기상관측자료 파일 불러오기
+def weather_read(weekends):
+    df = pd.read_csv('weather.csv', index_col=False)
+    df['Date'] = pd.to_datetime(df['Date'])
+
+    # 날씨 정보 결측치를 0.0으로 조정
+    date_range = pd.date_range(start='2020-01-01', end='2024-12-10')
+    df = pd.merge(pd.DataFrame({'Date': date_range}), df, on='Date')
+    df.fillna(0, inplace=True)
+
+    df = pd.merge(climate_read(), df, on='Date', how='left')
+    df['평균기온평년차'] = df['평균기온'] - df['평년평균기온']
+    df['최고기온평년차'] = df['평균기온'] - df['평년최고기온']
+    df['최저기온평년차'] = df['평균기온'] - df['평년최저기온']
+
+    return weekendOnly(df) if weekends else weekOnly(df)
+
 # 평년기온 파일 불러오기
 def climate_read():
     df = pd.read_csv('climate.csv', index_col=False)
@@ -16,22 +33,11 @@ def climate_read():
 
     for i in range(len(df)):
         df.loc[i, '평년평균기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년평균기온']
-        df.loc[i, '평년최고기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년평균기온']
-        df.loc[i, '평년최저기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년평균기온']
+        df.loc[i, '평년최고기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년최고기온']
+        df.loc[i, '평년최저기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년최저기온']
 
     return df
 
-# 기상관측자료 파일 불러오기
-def weather_read(weekends):
-    df = pd.read_csv('weather.csv', index_col=False)
-    df['Date'] = pd.to_datetime(df['Date'])
-
-    # 날씨 정보 결측치를 0.0으로 조정
-    date_range = pd.date_range(start='2020-01-01', end='2024-12-10')
-    df = pd.merge(pd.DataFrame({'Date': date_range}), df, on='Date', how='left')
-    df.fillna(0, inplace=True)
-
-    return weekendOnly(df) if weekends else weekOnly(df)
 
 # 전철 탑승객 자료 파일 불러오기
 def subway_read(weekends):
