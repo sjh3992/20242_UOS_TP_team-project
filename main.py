@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from file_read import weather_read, subway_read, climate_read
 from analyze import rainfall
 
+plt.rcParams['font.family'] = 'NanumGothic'
+plt.rcParams['axes.unicode_minus'] = False
+
 # csv 불러오기
 weekends = False    # True: 주말/공휴일 분석, False: 평일 분석
 climate = climate_read()
