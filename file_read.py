@@ -10,6 +10,15 @@ from week_filter import weekOnly, weekendOnly
 def climate_read():
     df = pd.read_csv('climate.csv', index_col=False)
     df['Date'] = pd.to_datetime(df['Date'])
+
+    date_range = pd.date_range(start='2020-01-01', end='2024-12-10')
+    df = pd.merge(pd.DataFrame({'Date': date_range}), df, on='Date', how='left')
+
+    for i in range(len(df)):
+        df.loc[i, '평년평균기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년평균기온']
+        df.loc[i, '평년최고기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년평균기온']
+        df.loc[i, '평년최저기온'] = df.loc[df.index[df['Date']==df.loc[i,'Date'].replace(year=2020)].tolist()[0],'평년평균기온']
+
     return df
 
 # 기상관측자료 파일 불러오기
