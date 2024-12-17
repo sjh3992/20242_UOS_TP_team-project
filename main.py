@@ -9,7 +9,7 @@ plt.rcParams['font.family'] = 'NanumGothic'
 plt.rcParams['axes.unicode_minus'] = False
 
 # csv 불러오기
-weekends = False    # True: 주말/공휴일 분석, False: 평일 분석
+weekends = True    # True: 주말/공휴일 분석, False: 평일 분석
 weather = weather_read(weekends)
 subway = subway_read(weekends)
 
