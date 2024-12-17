@@ -14,7 +14,7 @@ def outlier(df):
 
 def pear(x, y, i):
     statistic, pvalue = stats.pearsonr(x, y)
-    print(i+": ", statistic, pvalue, "\033[92mTrue\033[0m" if pvalue<0.05 else "\033[91mFalse\033[0m", sep=', ')
+    print(i+": ", "\033[91m"+str(statistic)+"\033[0m" if abs(statistic)<0.1 else "\033[92m"+str(statistic)+"\033[0m", "\033[92m"+str(pvalue)+"\033[0m" if pvalue<0.05 else "\033[91m"+str(pvalue)+"\033[0m", sep=', ')
 
 # 강우량에 따른 상관관계 분석
 def rainfall(df, stn):
